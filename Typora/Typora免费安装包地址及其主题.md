@@ -3,6 +3,12 @@
 >   官网主题推荐
 >
 >   https://theme.typoraio.cn/
+>
+>   官网低于1.0.0版本的都是免费Beta版本
+>
+>   https://support.typoraio.cn/
+>
+>   ![Typora_Free](img/Typora_Free.png)
 
 > 使用主题
 >
