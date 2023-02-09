@@ -128,7 +128,7 @@
 >     // 第二次成功时调用 success
 >     ```
 >
->     `then`在失败的`reject`方法中无论执行是否报错，是否有 return，返回的`Promise`的`state`都为`rejected`
+>     `then`在失败的`reject`方法中无论执行是否报错，是否有 return，返回的`Promise`的`state`都为`rejected`；`但是如果reject中显示写了返回的新的promise（可以pending或者fullfiled），则以新的Promise为准，继续后面的then。`
 >
 >     ```JS
 >     const p = new Promise((resole, reject) => {
@@ -177,12 +177,13 @@
 >          throw new Error('执行错误了')
 >        }).catch((reason) => {
 >          console.log('rejected了，执行catch', reason)
->
+>     
 >        // rejected了，执行catch Error: 执行错误了
 >        //    at Pomise.html: 34: 19
 >        //    at new Promise(<anonymous>)
 >        //    at Pomise.html:33:9
 >        ```
+>     3. `catch`可以捕获`then`链条上的任意结点的异常或者错误
 >
 > - `then`和`catch`链式调用写法
 >
@@ -275,7 +276,7 @@
 >       // 不管promise最后的状态，在执行完then或catch指定的回调函数以后，都会执行finally方法指定的回调函数。
 >       console.log("第三次调用finally");
 >     });
->
+>  
 >   //开始hahaha
 >   //第一次成功时调用 成功的结果
 >   //第一次调用finally
