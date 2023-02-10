@@ -38,6 +38,7 @@
     
     // js迭代集合中的元素要用of，如果是用in则迭代的是索引值，比如说index
     ```
+     `{...P}可以`<strong style="color:red">(...P) 不行</strong>
     
 2. 数组复制和填充
 
