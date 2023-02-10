@@ -27,3 +27,14 @@
 > -   宽屏
 >
 >     >   修改css中所有宽度width为100%，即可将预览页面调整到宽屏
+>     
+> - 字体修改为`JetBrains Mono`,可以到`JetBrains 官网下载字体`
+>
+>     > 在主题的css文件中添加如下代码，或者直接拷贝我的样式文件
+>     >
+>     > ```css
+>     >     --font-sans-serif: 'JetBrains Mono', 'Source Sans Pro', sans-serif !important;
+>     >     --font-monospace: 'JetBrains Mono','Fira Code', 'Roboto Mono', monospace !important;
+>     > ```
+>     >
+>     > 
