@@ -14,8 +14,12 @@ git-bash 编译命令
 
 ```shell
 # 指定settings，跳过doc，test，强制更新本地maven仓的jar包
+# 打印命令
+echo "mvn clean package -e -U -Dmaven.javadoc.skip=true -Dmaven.test.skip=true --settings /F/software/apache-maven-3.9.4/conf/settings_singcheer.xml"
 mvn clean package -e -U -Dmaven.javadoc.skip=true -Dmaven.test.skip=true --settings /F/software/apache-maven-3.9.4/conf/settings_singcheer.xml
 # 上传jar包到远程中心Maven仓库
+# 打印命令
+echo "mvn clean deploy -Dmaven.javadoc.skip=true -Dmaven.test.skip=true  --settings /F/software/apache-maven-3.9.4/conf/settings_singcheer.xml"
 mvn clean deploy -Dmaven.javadoc.skip=true -Dmaven.test.skip=true  --settings /F/software/apache-maven-3.9.4/conf/settings_singcheer.xml
 ```
 
