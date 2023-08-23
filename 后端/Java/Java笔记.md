@@ -1,3 +1,58 @@
+# Maven
+
+CMD 编译命令
+
+```cmd
+# 指定settings，跳过doc，test，强制更新本地maven仓的jar包
+mvn clean package -e -U -Dmaven.javadoc.skip=true -Dmaven.test.skip=true --settings F:\software\apache-maven-3.9.4\conf\settings_singcheer.xml
+
+# 上传jar包到远程中心Maven仓库
+mvn clean deploy -Dmaven.javadoc.skip=true -Dmaven.test.skip=true  --settings F:\software\apache-maven-3.9.4\conf\settings_singcheer.xml
+```
+
+git-bash 编译命令
+
+```shell
+# 指定settings，跳过doc，test，强制更新本地maven仓的jar包
+mvn clean package -e -U -Dmaven.javadoc.skip=true -Dmaven.test.skip=true --settings /F/software/apache-maven-3.9.4/conf/settings_singcheer.xml
+# 上传jar包到远程中心Maven仓库
+mvn clean deploy -Dmaven.javadoc.skip=true -Dmaven.test.skip=true  --settings /F/software/apache-maven-3.9.4/conf/settings_singcheer.xml
+```
+
+在Maven的bin目录下新建`xxmvn.bat` `xxmvn.shell`；
+
+`CMD`中直接执行<strong style="color:red">xxmvn命令即可</strong>
+
+`git bash`中直接执行<strong style="color:red">sh xxmvn.sh 命令即可</strong>
+
+
+
+#### idea配置终端为git bash，并解决git bash中文乱码问题
+
+设置IDEA Terminal窗口为Gitbash，非弹窗，并设置使用maven命令
+
+[设置IDEA Terminal窗口为Gitbash，非弹窗，并设置使用maven命令_idea terminal固定_wangsun300的博客-CSDN博客](https://blog.csdn.net/wangsun300/article/details/105782778)
+
+解决IDEA 2019.2.3在使用Terminal时，按ESC键切换至编辑窗口的问题
+
+[解决IDEA 2019.2.3在使用Terminal时，按ESC键切换至编辑窗口的问题_idea terminal esc_tree先生的博客-CSDN博客](https://blog.csdn.net/ldjjbzh626/article/details/103009978)
+
+
+
+# Git
+
+## 设置git远程仓库别名
+
+```shell
+# 代码仓初始化模板
+git clone http://ip:port/xux/fastboot.git -b dev
+git remote rm origin
+git remote add xux http://ip:port/xux/fastboot.git
+git remote add singcheer http://ip:port/unified-platform/fastboot.git
+```
+
+
+
 # JDK8新特性
 
 ### Lambda表达式
