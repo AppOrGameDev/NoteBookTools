@@ -54,7 +54,11 @@ git remote rm origin
 git remote add xux http://ip:port/xux/fastboot.git
 git remote add singcheer http://ip:port/unified-platform/fastboot.git
 ```
-
+```cmd
+#  win下端口被占用,杀进程
+netstat -aon|findstr "80"
+taskkill -pid 14868 -f
+```
 
 
 # JDK8新特性
