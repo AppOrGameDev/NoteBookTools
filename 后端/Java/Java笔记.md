@@ -60,6 +60,9 @@ netstat -aon|findstr "80"
 taskkill -pid 14868 -f
 ```
 
+# 本地环境
+> mysql root 12345678
+> Redis 没有密码
 
 # JDK8新特性
 
