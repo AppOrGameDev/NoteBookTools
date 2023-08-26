@@ -64,6 +64,10 @@ taskkill -pid 14868 -f
 > mysql root 12345678
 > Redis 没有密码
 
+# 代码仓库分支管理
+> 将master和release*设置为保护分支,禁止任何人推送代码,只能MR合入;
+> releaase-0.0.1 为发布版本分支命名规范
+
 # JDK8新特性
 
 ### Lambda表达式
