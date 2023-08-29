@@ -62,7 +62,7 @@
   - Save保存，临时数据插入/更新
   - Export导出数据，后端返回查询结果，前端生成Excel/CSV文件。
 
-# 后端定义
+# 后端Bean定义
 
 ```java
 @Data
@@ -89,7 +89,7 @@ public class DownloadData {
 
 `@ExcelProperty(value = "创建时间",index = 1,converter = LocalDateTimeConverter.class)` 定义导出的表头,第几列,格式转换
 
-`读Excel/CSV如果采用中文表头,则不根据表头来映射Bean字段,而是根据顺序读取`
+`读Excel/CSV不根据表头来映射Bean字段,而是根据顺序读取`
 
 ```txt
 -------------------------------表头英文跟Bean中属性字段映射顺序保持一致-------------------------------
@@ -127,11 +127,105 @@ hehe,987654,2023-08-23 14:36:00
 
 ## 找一个满足上面要求的开源项目
 
-- 导入Excel时，将Eacel保存到FTP中，然后新建导入临时表，让用户知道自己的临时文件
 - 流程图
 - 时序图
+- 导入时只能全部新增/全部更新
+- 更新前后内容一致的更新，是否允许？？？
+- 数据校验范围
+  - 字段合法性校验
+    - string，int，boolean，datetime
+    - 手机号码
+    - 邮箱
+    - 等等
+  - 一行记录的逻辑主键唯一性校验。（一个Excel映射一张表）
+    - 新增时，不能重复
+    - 更新时，主键要存在
+- 预览数据校验结果
+  - 每一行的校验结果；失败原因。（若有多因，至少显示一条原因）
+  - 仅全部校验通过后，才能确认导入。
+  - 真正的导入操作采用异步任务执行。（流程图需要补充异步任务队列的部分）
 
-![](img/Excel导入时序图.jpg)
+![](img/Excel导入时序图_异步任务保存V1.0.jpg)
 
-![](img/Excel导入通用模板.jpg)
+![](img/Excel导入通用模板_异步任务保存V1.0.jpg)
 
+# 导入导出基础表设计
+
+## 导入导出操作记录表
+
+`Import_Export_records`
+
+| 列名                 | 名称(中文)                        | 数据类型   | 样例                                                      |
+| -------------------- | --------------------------------- | ---------- | --------------------------------------------------------- |
+| ID                   | 主键ID                            | uuid       | 163CDFFE-5F4B-334A-5FB5-DEEAE81E9A24                      |
+| tenant_id            | 用户ID                            | bigint     | 001                                                       |
+| customer_name        | 用户名称                          | vchar(50)  | xux                                                       |
+| start_time           | 开始时间                          | datetime   | 2023/08/29 15:28:00                                       |
+| end_time             | 结束时间                          | datetime   | 2023/08/29 15:28:00                                       |
+| action_object        | 操作对象(导出的用户,工序)         | vchar(256) | USER                                                      |
+| action_type          | 操作类型(导入/导出)               | vchar(32)  | import                                                    |
+| status               | 当前状态(未开始/进心中/成功/失败) | vchar(32)  | (0:未开始-init/1:进心中-ing/2:成功-success/3:失败-failed) |
+| success_record_count | 成功记录数                        | int        | 100                                                       |
+| failed_record_count  | 失败记录数                        | int        | 0                                                         |
+
+## 导入任务执行记录表
+
+`Import_task_execute_records`
+
+| 列名             | 名称(中文)                            | 数据类型    | 样例                                                      |
+| ---------------- | ------------------------------------- | ----------- | --------------------------------------------------------- |
+| task_id          | 任务ID/主键ID                         | uuid        | 163CDFFE-5F4B-334A-5FB5-DEEAE81E9A24                      |
+| task_type        | 任务类型                              | vchar(128)  | USER_IMPORT/TECHNOLOGY_IMPORT                             |
+| task_handler     | 任务处理者                            | vchar(512)  | 导入处理类                                                |
+| import_file_path | 导入文件路径                          | vchar(1024) | 导入文件路径                                              |
+| params           | 参数                                  | vchar(1024) | 辅助参数                                                  |
+| status           | 任务执行状态(未开始/进心中/成功/失败) | vchar(32)   | (0:未开始-init/1:进心中-ing/2:成功-success/3:失败-failed) |
+| create_time      | 任务创建时间                          | datetime    | 前端确认导入的时间                                        |
+| start_time       | 任务开始时间                          | datetime    | 导入任务真正被拉起执行的时间                              |
+| end_time         | 任务结束时间                          | datetime    | 导入任务结束的时间                                        |
+| consume_time     | 任务耗时(s秒)                         | bigint      | 结束时间-开始时间                                         |
+| remark           | 备注                                  | vchar(512)  |                                                           |
+
+## 异步任务调度时，同一条导入任务不会被多个执行节点/线程重复执行
+
+```sql
+# 查询一条未开始的任务
+select * from Import_task_execute_records where status = 0 and task_type = 'USER_IMPORT' order by create_time limit 1;
+# 返回结果非空时，走下一步更新；返回空，重试3次；
+
+# 立即对该任务加锁更新,
+update Import_task_execute_records set status=1,start_time = current_time where task_id = 'uuid' and status = 1;
+# 影响数据行数为1时，更新(加锁成功)，执行导入任务；影响行数为0，更新失败；返回上一步继续查询。
+```
+
+## 校验结果数据结构
+
+```json
+{
+	"total": 1000,
+	"successCount": 900,
+	"failedCount": 100,
+	"validResult": false,
+	"data": [{
+		"userName": "张三 ",
+		"sex": "male",
+		"age": "24",
+		"validResult": false,
+		"reason": "主键重复"
+	}, {
+		"userName": "李四",
+		"sex": "male",
+		"age": "17",
+		"validResult": false,
+		"reason": "年龄>=18"
+	}]
+}
+```
+
+
+
+# 导出
+
+## 导出勾选的记录
+
+## 导出搜索条件查询的结果
