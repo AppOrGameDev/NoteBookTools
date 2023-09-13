@@ -112,6 +112,10 @@ taskkill -pid 14868 -f
 >         // List转Map
 >         Map<Integer, Employee> groupByAge = employeeList.stream().collect(Collectors.toMap(Employee::getId, Function.identity()));
 >         Map<Integer, String> groupByAge = employeeList.stream().collect(Collectors.toMap(Employee::getId, Employee::getName));
+>         // JSONArray转Map
+>         JSONObject options = JSONObject.parseObject("{\"businessObjName\":\"\",\"refFieldCode\":\"\",\"maxNum\":0,\"minNum\":0,\"filter\":[{\"fieldType\":\"\"}],\"options\":[{\"label\":\"选项1\",\"value\":\"1\"},{\"label\":\"选项2\",\"value\":\"2\"}],\"linkUrl\":\"\",\"bindDict\":\"mes_origin_type\",\"maxFileNumber\":1,\"isDisplay\":1}");
+>         Map<String, String> dictOptionMap = options.getJSONArray("options").stream().collect(Collectors.toMap(key -> ((JSONObject) key).getString("value"), val -> ((JSONObject) val).getString("label")));
+>         System.out.println(dictOptionMap);
 > ```
 >
 > 
