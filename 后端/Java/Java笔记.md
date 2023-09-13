@@ -109,6 +109,9 @@ taskkill -pid 14868 -f
 >         // 按年龄分组
 >         Map<Integer, List<Employee>> groupByAge = employeeList.stream().collect(Collectors.groupingBy(Employee::getAge));
 >         System.out.println(groupByAge);
+>         // List转Map
+>         Map<Integer, Employee> groupByAge = employeeList.stream().collect(Collectors.toMap(Employee::getId, Function.identity()));
+>         Map<Integer, String> groupByAge = employeeList.stream().collect(Collectors.toMap(Employee::getId, Employee::getName));
 > ```
 >
 > 
