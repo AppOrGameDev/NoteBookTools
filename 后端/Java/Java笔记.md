@@ -189,3 +189,5 @@ taskkill -pid 14868 -f
 
 # git cherry-pick
 > https://juejin.cn/post/7220995317633269816
+## idea使用git cherry-pick
+> https://blog.csdn.net/qq_23167527/article/details/102595278
