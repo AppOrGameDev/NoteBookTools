@@ -191,3 +191,7 @@ taskkill -pid 14868 -f
 > https://juejin.cn/post/7220995317633269816
 ## idea使用git cherry-pick
 > https://blog.csdn.net/qq_23167527/article/details/102595278
+
+>            for (Map.Entry<String, String> entry: rowData.entrySet()) {
+>                // 校验Value字段合法性 entry.getValue();
+>           }
