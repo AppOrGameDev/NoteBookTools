@@ -208,4 +208,11 @@ taskkill -pid 14868 -f
 
 >            for (Map.Entry<String, String> entry: rowData.entrySet()) {
 >                // 校验Value字段合法性 entry.getValue();
->           }
+>            }
+
+## PostMan汉化
+
+https://www.cnblogs.com/sansui6/p/17267525.html
+
+`注意关闭音乐`
+
