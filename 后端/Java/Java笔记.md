@@ -62,7 +62,7 @@ mvn clean deploy -Dmaven.javadoc.skip=true -Dmaven.test.skip=true  --settings /F
 ## 设置git远程仓库别名
 
 ```shell
-# 代码仓初始化模板
+# 代码仓初始化模板 -b 既可以检出分支也可以检出tag标签
 git clone http://ip:port/xux/fastboot.git -b dev
 git remote rm origin
 git remote add xux http://ip:port/xux/fastboot.git
