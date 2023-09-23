@@ -41,6 +41,20 @@ mvn clean deploy -Dmaven.javadoc.skip=true -Dmaven.test.skip=true  --settings /F
 
 [解决IDEA 2019.2.3在使用Terminal时，按ESC键切换至编辑窗口的问题_idea terminal esc_tree先生的博客-CSDN博客](https://blog.csdn.net/ldjjbzh626/article/details/103009978)
 
+## Maven提速
+
+```xml
+ <mirrors>
+     <!--settings.xml添加阿里云镜像源-->
+     <mirror>
+      <id>alimaven</id>
+      <mirrorOf>central</mirrorOf>
+      <name>aliyun maven</name>
+      <url>http://maven.aliyun.com/nexus/content/repositories/central/</url>
+    </mirror>
+  </mirrors>
+```
+
 
 
 # Git
