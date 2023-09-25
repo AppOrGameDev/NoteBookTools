@@ -236,6 +236,8 @@ https://www.cnblogs.com/sansui6/p/17267525.html
     public static void main(String[] args) {
         System.out.println(isValidDate("2023-09-25 22:04:23", "yyyy-MM-dd HH:mm:ss"));
         System.out.println(isValidDate("2023-09-25 02:04:23", "yyyy-MM-dd HH:mm:ss"));
+        System.out.println(isValidDate("2023年09月25日 02时04分23秒", "yyyy年MM月dd日 HH时mm分ss秒"));
+        System.out.println(isValidDate("2023年09月25日 22时04分23秒", "yyyy年MM月dd日 HH时mm分ss秒"));
     }
 ```
 
