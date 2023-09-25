@@ -216,3 +216,26 @@ https://www.cnblogs.com/sansui6/p/17267525.html
 
 `注意关闭音乐`
 
+# Java日期时间格式
+
+`yyyy-MM-dd HH:mm:ss` <strong style="color:red">HH 表示24小时制</strong>
+
+```java
+    public static boolean isValidDate(String dateStr, String format) {
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        sdf.setLenient(false);
+        // 设置解析日期时严格匹配，不容忍格式错误
+        try {
+            sdf.parse(dateStr);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
+    }
+
+    public static void main(String[] args) {
+        System.out.println(isValidDate("2023-09-25 22:04:23", "yyyy-MM-dd HH:mm:ss"));
+        System.out.println(isValidDate("2023-09-25 02:04:23", "yyyy-MM-dd HH:mm:ss"));
+    }
+```
+
