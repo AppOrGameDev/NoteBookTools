@@ -22,5 +22,9 @@ https://developer.aliyun.com/article/1279797
 
 ## RabbitMQ本地启动生产者/消费者
 
+###### 测试代码
+
+https://blog.csdn.net/qq_18671415/article/details/105541434
+
 ![](img/Snipaste_2023-10-08_11-25-35.jpg)
 
