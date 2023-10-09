@@ -127,6 +127,8 @@ http://192.168.245.129:9000/xux001/test/csv/test.csv 可随处下载（预先配
 > 安装完CentOS7，启用网络连接
 >
 > https://blog.csdn.net/qq_45743985/article/details/121152504
+> 
+> 安装报错解决办法 https://blog.csdn.net/qq_43674360/article/details/120911532
 >
 > ```shell
 > vi /etc/sysconfig/network-scripts/ifcfg-ens33
