@@ -57,7 +57,15 @@
 
 ## 设置超期文件自动删除
 
-![](img/Snipaste_2023-09-01_18-27-19.jpg)
+![](img/Snipaste_2023-10-10_09-36-23.jpg)
+
+![](img/Snipaste_2023-10-10_09-37-25.jpg)
+
+```txt
+mesManufactureOrderMaster/upload/
+mesManufactureOrderMaster/upload/preview_result_
+mesManufactureOrderMaster/upload/preview_result_*
+```
 
 
 
@@ -127,8 +135,6 @@ http://192.168.245.129:9000/xux001/test/csv/test.csv 可随处下载（预先配
 > 安装完CentOS7，启用网络连接
 >
 > https://blog.csdn.net/qq_45743985/article/details/121152504
-> 
-> 安装报错解决办法 https://blog.csdn.net/qq_43674360/article/details/120911532
 >
 > ```shell
 > vi /etc/sysconfig/network-scripts/ifcfg-ens33
@@ -183,3 +189,34 @@ docker run -d -it \
 # 访问MinIO的管理页面
 
 > http://192.168.245.129:9090/access-keys/new-account
+
+# OSS文件服务器后端开发计划
+
+> | 功能点                        | 开发时间（天） | 开发详情                                                     | 状态 |
+> | ----------------------------- | -------------- | ------------------------------------------------------------ | ---- |
+> | MinIO服务器搭建指导和使用指导 | 1              | 1.从裸服务器服务器开始搭建一台MinIO的对象存储服务器；2.预先创建access-key，并赋权；2.设置只读用户；3.业务功能使用OSS服务前，预先创建桶； | OPEN |
+> | OSS存储独立微服务搭建         | 0.5            | 搭建si-oss独立微服务                                         | OPEN |
+> | 文件上传，下载，删除接口开发  | 1              |                                                              | OPEN |
+>
+
+### minIO的starter 现成的
+
+> https://gitee.com/theOS/nau.minio.spring-boot-starter
+
+#### minIO的Starter已开发完成
+
+```txt
+2023-09-16 10:28:39.812  INFO [si-mes,,] 17720 --- [           main] com.singcheer.sicloud.mes.SiMes          : The following 1 profile is active: "xux"
+2023-09-16 10:28:40.562 ERROR [si-mes,,] 17720 --- [           main] o.s.boot.SpringApplication               : Application run failed
+
+java.lang.IllegalStateException: Unable to read meta-data for class com.singcheer.fastboot.framework.minio.MinioAutoConfiguration
+        at org.springframework.boot.autoconfigure.AutoConfigurationSorter$AutoConfigurationClass.getAnnotationMetadata(AutoConfigurationSorter.java:237) ~[spring-boot-autoconfigure-2.5.12.jar:2.5.12]
+        at org.springframework.boot.autoconfigure.AutoConfigurationSorter$AutoConfigurationClass.getOrder(AutoConfigurationSorter.java:208) ~[spring-boot-autoconfigure-2.5.12.jar:2.5.12]
+        at org.springframework.boot.autoconfigure.AutoConfigurationSorter$AutoConfigurationClass.access$000(AutoConfigurationSorter.java:154) ~[spring-boot-autoconfigure-2.5.12.jar:2.5.12]
+        at org.springframework.boot.autoconfigure.AutoConfigurationSorter.lambda$getInPriorityOrder$0(AutoConfigurationSorter.java:63) ~[spring-boot-autoconfigure-2.5.12.jar:2.5.12]
+```
+
+> 问题解决：两种方法，最后是只有第一种解决的
+>
+> 1. starter中的`spring.factories`文件可能存在文件编码错误,找了Excel的starter文件过来替换，内容重新编辑OK
+> 2. ![](img/Snipaste_2023-09-16_12-55-48.jpg)
