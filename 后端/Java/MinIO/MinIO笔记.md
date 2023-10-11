@@ -67,6 +67,7 @@ mesManufactureOrderMaster/upload/preview_result_
 mesManufactureOrderMaster/upload/preview_result_*
 ```
 
+`理解tags是如何使用的` `minio生命周期规则tags标签如何使用？`
 
 
 ## 接口测试结果
