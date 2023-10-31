@@ -32,3 +32,8 @@ win+R --> regedit --> 进入注册表后依次展开HKEY_LOCAL_MACHINE\SOFTWARE\
 ```
 
 ![](img/Snipaste_2023-10-31_09-03-11.jpg)
+
+## win11开启右键
+```txt
+reg add HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32 /ve /d "" /f
+```
