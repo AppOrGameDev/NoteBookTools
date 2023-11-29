@@ -66,6 +66,10 @@ https://githubfast.com/
 
 https://gitee.com/chcrazy/FastGithub/releases
 
+[fastgithub_win-x64.zip](FastGitHub/2.1.4/fastgithub_win-x64.zip)
+
+[fastgithub_osx-arm64.zip](FastGitHub/2.1.4/fastgithub_osx-arm64.zip)
+
 安装包也备份一下;直接管理员允许.
 
 ![](img/Snipaste_2023-11-29_10-47-23.jpg)
