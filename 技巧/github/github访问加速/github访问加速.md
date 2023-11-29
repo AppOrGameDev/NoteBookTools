@@ -1,5 +1,7 @@
 # github访问加速
 
+# 最推荐使用7. FastGitHub加速器，目前的效果是最顶的
+
 ### 1. Watt Toolkit：
 
 https://steampp.net/
